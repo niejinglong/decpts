@@ -1,0 +1,54 @@
+﻿version____windows 版 Redis 服务的命令
+		
+ 1.安装切换
+ 
+	1.1. 切换到redis的安装目录 如："d:"
+  
+  	1.2. cd D:\project\Redis-x64-3.2.100
+
+ 2.安装设置:	设置redis服务命令到windows 后台窗口
+
+  	2.1 安装redis服务使用cmd窗口命令行:
+  		
+		redis-server --service-install redis.windows.conf --loglevel verbose 回车 注:如果没有出现错误则设置成功 可到windows服务管理下查看;
+  		
+  	2.2 御卸redis服务使用cmd窗口命令行:
+	  	
+		redis-server --service-uninstall 回车
+ 
+3.使用命令行启动或停止Redis服务:
+  
+	3.1 启动服务命令:
+	
+		redis-server --service-start 回车
+
+    	3.2 停止服务命令:
+		
+		redis-server --service-stop  回车
+	
+4.密码设置: 密码设置的2种方式:
+
+ 	4.1 在redis.conf 配置文件更改requirepass 参数 
+		如: requirepass test123 更改后需要重启redis服务; 注:关闭redis服务后重启密码不会失效;
+	    		
+ 	
+	4.2 通过命令设置，不需要重启redis服务，但是redis重启后密码就会失效;
+
+		4.2.1 登录redis 服务: 注：如果没密码则去掉密码回车就行（如：redis-cli -p 6379 回车）有密码 redis-cli-p 6379 -a 123456 回车
+			
+			redis-cli -p 6379 -a 密码 回车
+
+		4.2.2 查询密码 config get requirepass 回车
+
+		4.2.3 设置密码 config set requirepass 回车 密码 如：config set requirepass 123456
+		
+		4.2.4 退出重新登录验证。 exit 退出 回车
+
+
+5.清除缓存
+	1.进入redis服务 ：redis-cli -p 6379
+	2.输入命令：flushall 清除所有或 flushdb
+	 
+		如果出现这个错误：NOAUTH Authentication required. 则输入：auth "123456" 然后 flushall 或flushdb 
+
+
